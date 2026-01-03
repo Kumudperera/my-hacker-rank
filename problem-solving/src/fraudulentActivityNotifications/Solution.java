@@ -23,7 +23,6 @@ class Result {
      */
 
     public static int activityNotifications(List<Integer> expenditure, int d) {
-        // Write your code here
         int result = 0;
         List<Integer> sorted = updateSortedList(expenditure.subList(0, d), null, null);
 
