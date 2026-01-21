@@ -62,67 +62,27 @@ class Result {
 
             try {
                 if (iDiff == 0) {
-                     if (jDiff > 0) {
-                        j = left(j, true, true);
-                    } else {
-                        j = right(j, true, true);
+                    if (jDiff % MAX_MOVE != 0) {
+                        throw new TestException();
                     }
+                    j = rightOrLeft(n, j, jDiff, true);
                     count++;
                 } else if (iDiff > 0) {
                     i = up(i, true);
-                    j = rightOrLeft(n, j, jDiff);
+                    j = rightOrLeft(n, j, jDiff, false);
                     count++;
                 } else {
                     i = down(i, true);
-                    j = rightOrLeft(n, j, jDiff);
+                    j = rightOrLeft(n, j, jDiff, false);
                     count++;
                 }
             } catch (TestException e) {
                 System.out.println("Impossible");
                 return;
             }
-
-
         }
     }
 
-    public static void out(int tempJ, int j, int n) throws TestException {
-        tempJ = right(tempJ, false, false);
-        if (tempJ > n - 1) {
-            tempJ = Integer.valueOf(j);
-            tempJ = left(tempJ, false, false);
-            if (tempJ < 0) {
-                throw new TestException();
-            }
-//            j = left(j, false, true);
-        } else {
-//            j = right(j, false, true);
-        }
-    }
-
-    public static int rightOrLeft(int n, int j, int jDiff) throws TestException {
-        int tempJ = Integer.valueOf(j);
-
-        if (jDiff == 0) {
-            tempJ = right(tempJ, false, false);
-            if (tempJ > n - 1) {
-                tempJ = Integer.valueOf(j);
-                tempJ = left(tempJ, false, false);
-                if (tempJ < 0) {
-                    throw new TestException();
-                }
-                j = left(j, false, true);
-            } else {
-                j = right(j, false, true);
-            }
-        } else if (jDiff > 0) {
-            j = left(j, false, true);
-        } else {
-            j = right(j, false, true);
-        }
-
-        return j;
-    }
     public static int down(int i, boolean print) {
         i = i + MAX_MOVE;
         if (print) printMoves = printMoves + "L";
@@ -133,24 +93,53 @@ class Result {
         if (print) printMoves = printMoves + "U";
         return i;
     }
-    public static int left(int j, boolean maxMove, boolean print) {
+
+    public static int rightOrLeft(int n, int j, int jDiff, boolean maxMove) throws TestException {
+        int tempJ = Integer.valueOf(j);
+
+        if (jDiff == 0) {
+            try {
+                tempJ = left(tempJ, false, true);
+            } catch (TestException e) {
+                tempJ = right(tempJ, n, false, true);
+            }
+            j = tempJ;
+        } else if (jDiff > 0) {
+            j = left(j, maxMove, true);
+        } else {
+            j = right(j, n, maxMove, true);
+        }
+
+        return j;
+    }
+    public static int right(int j, int n, boolean maxMove, boolean print) throws TestException {
+        if (maxMove) {
+            j = j + MAX_MOVE;
+        } else {
+            j = j + MIN_MOVE;
+        }
+
+        if (j > n - 1) {
+            throw new TestException();
+        }
+
+        if (print) printMoves = printMoves + "R ";
+        return j;
+    }
+
+    public static int left(int j, boolean maxMove, boolean print) throws TestException {
         if (maxMove) {
             j = j - MAX_MOVE;
         } else {
             j = j - MIN_MOVE;
         }
 
+        if (j < 0) {
+            throw new TestException();
+        }
+
         if (print) printMoves = printMoves + "L ";
         return j;
-    }
-
-    public static int right(int j, boolean maxMove, boolean print) {
-        if (print) printMoves = printMoves + "R ";
-        if (maxMove) {
-            return j + MAX_MOVE;
-        } else {
-            return j + MIN_MOVE;
-        }
     }
 }
 
