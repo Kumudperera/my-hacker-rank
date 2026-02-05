@@ -1,19 +1,11 @@
-package commonChild;
+package medium.commonChild;
 
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
-import java.util.stream.*;
 
 class Result {
 
     /*
-     * Complete the 'commonChild' function below.
+     * Complete the 'medium.commonChild' function below.
      *
      * The function is expected to return an INTEGER.
      * The function accepts following parameters:

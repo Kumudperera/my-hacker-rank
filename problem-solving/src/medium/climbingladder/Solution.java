@@ -1,4 +1,4 @@
-package climbingladder;
+package medium.climbingladder;
 
 import java.io.*;
 import java.util.*;
