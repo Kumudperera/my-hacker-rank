@@ -20,9 +20,9 @@ class Result {
      * The function accepts INTEGER_ARRAY ar as parameter.
      */
 
-    public static int simpleArraySum(List<Integer> ar) {
-        int sum = 0;
-        for (int num : ar) {
+    public static long simpleArraySum(List<Long> ar) {
+        long sum = 0;
+        for (long num : ar) {
             sum += num;
         }
         return sum;
@@ -37,11 +37,11 @@ public class Solution {
 
         int arCount = Integer.parseInt(bufferedReader.readLine().trim());
 
-        List<Integer> ar = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                .map(Integer::parseInt)
+        List<Long> ar = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                .map(Long::parseLong)
                 .collect(toList());
 
-        int result = Result.simpleArraySum(ar);
+        long result = Result.simpleArraySum(ar);
 
         bufferedWriter.write(String.valueOf(result));
         bufferedWriter.newLine();
